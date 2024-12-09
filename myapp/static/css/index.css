@@ -1,0 +1,120 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "HanYiLingXinTiJian";
+  src: url("../fonts/HanYiLingXinTiJian.ttf");
+}
+@font-face {
+  font-family: Digital;
+  src: url("../fonts/DISPLAY FREE TFB.ttf");
+}
+body, html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  padding: 0 2rem;
+  background: url("../img/背景.png") center center/100% 100% no-repeat;
+}
+
+h1 {
+  text-align: center;
+  background: linear-gradient(0deg, rgb(0, 216, 255) 0%, rgb(255, 255, 255) 75.78125%);
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.75rem;
+  font: normal 400 2rem/4rem "HanYiLingXinTiJian";
+  text-shadow: 0 0 1rem rgba(0, 216, 255, 0.25);
+  color: white;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row nowrap;
+  position: relative;
+  color: #6FBBF6;
+  font: italic 400 1.25rem/1.25rem "HanYiLingXinTiJian";
+}
+nav > div > span {
+  display: inline-block;
+  opacity: 0.5;
+  cursor: pointer;
+}
+nav > div > span:hover {
+  color: white;
+}
+nav > div > span#title {
+  transform: translateY(1.25rem);
+  position: absolute;
+  font: normal 400 1.5rem/5rem "HanYiLingXinTiJian";
+  text-align: center;
+  color: white;
+  opacity: 1;
+  width: 15rem;
+  height: 5rem;
+  background: url("../img/选中光效.png") center center/100% 100% no-repeat;
+}
+
+section:first-of-type {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 1rem;
+  height: 10rem;
+  margin: 5rem 0 1rem;
+}
+section:first-of-type > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row nowrap;
+  height: 100%;
+  line-height: 8rem;
+  background: rgba(0, 255, 255, 0.3333333333);
+  padding: 1rem;
+  font: normal normal 0.875rem/200% HanYiLingXinTiJian;
+  color: white;
+  text-align: center;
+}
+section:first-of-type > div > svg {
+  width: 4rem;
+  height: 4rem;
+  aspect-ratio: 1/1;
+}
+
+section:nth-of-type(2) {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 1rem;
+  height: calc(100% - 24rem);
+  padding: 0;
+}
+section:nth-of-type(2) > div {
+  border: 2px solid rgba(0, 204, 255, 0.75);
+  position: relative;
+}
+section:nth-of-type(2) > div > h2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3.5rem;
+  padding: 0 2rem;
+  font: normal normal 1.5rem/3rem HanYiLingXinTiJian;
+  color: white;
+  text-align: center;
+  background: url("../img/图片1.png") left bottom/contain no-repeat;
+}
+section:nth-of-type(2) > div > h2 > #timer {
+  font: normal bold 0.75rem/0.75rem Digital;
+}
+section:nth-of-type(2) > div > div {
+  height: calc(100% - 3rem);
+  margin-top: 3rem;
+}
+
+/*# sourceMappingURL=index.css.map */

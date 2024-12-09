@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>详情-简单</title>
+    <link rel="stylesheet" href="../../static/css/tail.css">
+</head>
+<body class="body">
+<section class="sm_section">
+    <form id="dataForm">
+        <div class="tail_div">
+            <div class="left tail_div_min">
+                <label>事务id：</label><input type="text" placeholder="输入id" id="itemId"/>
+            </div>
+            <div class="left tail_div_min">
+                <label>管理人员姓名：</label><input type="text" placeholder="输入姓名" id="managerName"/>
+            </div>
+            <div class="left tail_div_min">
+                <label>人员所属部门：</label><input type="text" id="managerDept"/>
+            </div>
+        </div>
+        <div class="tail_div">
+            <div class="left tail_div_min">
+                <label>电话号码：</label><input type="tel" id="phone"/>
+            </div>
+            <div class="left tail_div_min">
+                <label>事项名称：</label><input type="text" id="itemName"/>
+            </div>
+        </div>
+        <div class="tail_div">
+            <div class="left tail_div_min">
+                <label>井盖编号：</label><input type="text" id="coverNum">
+            </div>
+            <div class="left tail_div_min">
+                <label>负责部门：</label><input type="text" id="responsibleDept">
+            </div>
+            <div class="left tail_div_min">
+                <label>上传日期：</label><input type="date" id="uploadDate">
+            </div>
+        </div>
+        <div class="tail_div">
+        </div>
+        <div class="tail_div">
+            <br/>
+            <div class="left tail_div_xm">
+                <label class="noLable">选择文件：</label><input type="file"/>
+            </div>
+            <br/>
+            <div class="tail_div">
+                <div class="tail_div_max left">
+                    <label class="max_textarea_lable">备注：</label><textarea id="remarks"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="div_foot"><button type="button" class="save_but" onclick="saveData()">保存</button><button class="close_but" onclick="can()">取消</button></div>
+    </form>
+</section>
+<script src="../../static/js/jquery/jQuery-2.2.0.min.js"></script>
+<script>
+    function can(){
+        var index =parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+    function saveData() {
+        var data = {
+            itemId:document.getElementById('itemId').value,
+            itemName: document.getElementById('itemName').value,
+            responsibleDept: document.getElementById('responsibleDept').value,
+            uploadDate: document.getElementById('uploadDate').value
+        };
+        $.ajax({
+            url: '/save_case_data/',  // Django 后端处理数据的URL
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function(response) {
+                alert('保存成功');
+            },
+            error: function(xhr, status, error) {
+                alert('保存失败');
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传与测试</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% load static %}
+    <style>
+        body {
+            background-image: url("{% static 'img/backgrand.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            min-height: 100vh; /* Ensure full screen height */
+        }
+        .container {
+            padding-top: 5rem; /* Adjust top padding for content */
+            margin-bottom: 5rem; /* Adjust bottom margin for content */
+        }
+        .mb-4 {
+            margin-bottom: 2rem !important; /* Increase margin bottom for spacing */
+        }
+        .text-center {
+            text-align: center; /* Center align text */
+        }
+        .img-fluid {
+            max-width: 100%; /* Ensure images are responsive */
+            height: auto;
+        }
+        #labelsInfo {
+            font-size: larger;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <!--上传文件-->
+            <div class="mb-4 text-center"><i class="fa fa-support" aria-hidden="true"></i> 井盖上传与测试</div>
+            <form id="uploadForm" enctype="multipart/form-data" class="mb-4">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="file" name="pic" id="pic" class="form-control-file">
+                </div>
+                <button type="button" id="uploadAndRunButton" class="btn btn-primary btn-block">上传并运行测试</button>
+            </form>
+
+            <!--显示结果-->
+            <div class="text-center mb-4">
+                <button class="btn btn-secondary" onclick="changepic()">查看结果</button>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>原图</h5>
+                    <img id="originalImage" class="img-fluid mb-3" src="{% static 'pics/1.jpg' %}" alt="待上传">
+                </div>
+                <div class="col-md-6">
+                    <h5>结果图</h5>
+                    <img id="resultImage" class="img-fluid mb-3" src="{% static 'save/1.jpg' %}" alt="待上传">
+                </div>
+            </div>
+            <div id="labelsInfo" class="text-center mt-4"></div>
+            {% if messages %}
+                <div id="messages" class="alert alert-info mt-4">
+                    {% for message in messages %}
+                        <p class="mb-0">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div style="text-align: center" >
+    <button class="btn btn-primary"><a href="{% url 'table' %}" style="color: white;text-decoration:none;">登记数据</a></button>
+    <button class="btn btn-primary"><a href="{% url 'index' %}" style="color: white;text-decoration:none;">云端平台</a></button>
+</div>
+</body>
+<!--更新图片-->
+<script type="text/javascript">
+    var filename = null; // 定义全局变量
+
+    $(document).ready(function() {
+        // 上传并运行测试按钮点击事件
+        $("#uploadAndRunButton").click(function() {
+            var formData = new FormData($('#uploadForm')[0]);
+            $.ajax({
+                url: "{% url 'doupload' %}",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.filename) {
+                        filename = response.filename; // 保存文件名
+                        $("#originalImage").attr("src", response.uploaded_image_url);
+                        runTest(response.filename);
+                    } else {
+                        alert("文件上传失败，请重试。");
+                    }
+                },
+                error: function() {
+                    alert("文件上传失败，请重试。");
+                }
+            });
+        });
+
+        // 测试
+        function runTest(filename) {
+            $.ajax({
+                url: "{% url 'run_test' %}",
+                type: "POST",
+                data: JSON.stringify({ filename: filename }),
+                dataType: "json",
+                contentType: "application/json",
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        var newSrc = response.save_path;
+                        $("#resultImage").attr("src", newSrc);
+                        // 处理返回的 labels 数据
+                        var labels = response.labels;
+                        var labelsText = "";
+                        labels.forEach(function(label) {
+                            labelsText += `分类: ${label.class}, 置信度: ${label.confidence.toFixed(2)}; `;
+                        });
+                        // 将 labelsText 显示在页面上
+                        $("#labelsInfo").text(labelsText);
+                        localStorage.setItem('labelsInfo', labelsText);
+                        alert("测试运行成功，结果已更新。");
+                    } else {
+                        alert("测试运行失败，请重试。");
+                    }
+                },
+                error: function() {
+                    alert("请求失败，请重试。");
+                }
+            });
+        }
+
+        // 查看结果按钮点击事件
+        $("#viewResultButton").click(function() {
+            changepic();
+        });
+
+        // 上传消息判定
+        if ($("#messages").children().length > 0) {
+            var message = $("#messages").children().first().text();
+            alert(message);  // 显示alert提示
+            $("#messages").remove();  // 移除消息列表以防止重复显示
+        }
+    });
+
+    function changepic() {
+        if (filename) {
+            var newSrc1 = "{% static 'save/' %}" + filename;
+            var newSrc2 = "{% static 'pics/' %}" + filename;
+            $("#resultImage").attr("src", newSrc1);
+            $("#originalImage").attr("src", newSrc2);
+        } else {
+            alert("请先上传并运行测试。");
+        }
+    }
+</script>
+
+</html>

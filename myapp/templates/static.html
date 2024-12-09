@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>统计分析界面</title>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<body>
+<!--顶部-->
+<header class="header left">
+    <div class="left nav">
+        <ul>
+            <li ><i class="nav_1"></i><a href={% url 'index' %}>数据概览</a> </li>
+            <li class="nav_active"><i class="nav_7"></i><a href={% url 'static1'%}>查询统计</a> </li>
+            <li ><i class="nav_4"></i><a href={% url 'table1'%}>表格界面</a> </li>
+        </ul>
+    </div>
+    <div class="header_center left">
+        <h2><strong>井盖状态智能分析平台</strong></h2>
+        <p class="color_font"><small>Intelligent analysis platform for manhole cover status</small></p>
+    </div>
+</header>
+<!--内容部分-->
+<div class="con left">
+    <!--选择时间-->
+    <div class="static_top left">
+        <i></i><span>统计概况</span>
+    </div>
+    <!--数据总概-->
+    <div class="stiatic_top_con left">
+
+<table>
+    <tr>
+        <td class="labe_td">总概：</td>
+        <td colspan="3" class="sky">当前所划分片区共180个井盖，严重破损有1个，缺失井盖有一个，请尽快处理</td>
+    </tr>
+    <tr>
+        <td class="labe_td">近期新换井盖：</td>
+        <td>3个</td>
+        <td class="labe_td">尽快处理井盖：</td>
+        <td class="org">2个</td>
+    </tr>
+    <tr>
+        <td class="labe_td">近期开盖作业：</td>
+        <td class="red">96次</td>
+        <td class="labe_td">近期群众反馈：</td>
+        <td>3次</td>
+    </tr>
+</table>
+
+    </div>
+    <!--统计分析图-->
+    <div class="static_top left">
+        <i></i><span>统计分析一</span>
+    </div>
+    <div class="div_any">
+        <div class="left div_any03">
+            <div class="div_any_child01 left">
+                <div class="div_any_title"><i class="fa fa-life-ring fa-1x" aria-hidden="true" /></i>井盖类型统计 </div>
+                <p id="char1" class="p_chart"></p>
+                <div class="char_table"><div class="table_p table_p01">
+                    <table>
+                        <thead><tr>
+                            <th>排名</th>
+                            <th>井盖类型</th>
+                            <th>数量</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td>1</td><td>圆形</td><td>80</td></tr>
+                        <tr><td>2</td><td>方形</td><td>39</td></tr>
+                        <tr><td>3</td><td>网孔式</td><td>40</td></tr>
+                        <tr><td>4</td><td>其它</td><td>20</td></tr>
+                        </tbody>
+                    </table>
+                </div></div>
+
+            </div>
+            <div class="div_any_child01 left">
+                <div class="div_any_title"><img src="../static/img/title_2.png">井盖状态统计 </div>
+                <p id="char2" class="p_chart"></p>
+                <div class="char_table"><div class="table_p table_p01">
+                    <table>
+                        <thead><tr><th>高危井盖信息</th></tr></thead>
+                        <thead><tr>
+                            <th>排名</th>
+                            <th>井盖编号</th>
+                            <th>状态）</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td>1</td><td>zs7732434</td><td>缺失</td></tr>
+                        <tr><td>2</td><td>zs8552344</td><td>严重破损</td></tr>
+                        <tr><td>-</td><td>——————</td><td>————</td></tr>
+                        <tr><td>-</td><td>——————</td><td>————</td></tr>
+                        <tr><td>-</td><td>——————</td><td>————</td></tr>
+                        </tbody>
+                    </table>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="static_top left">
+            <i></i><span>统计分析一</span>
+        </div>
+        <div class="right div_any03">
+            <div class="div_any_child01 left">
+                <div class="div_any_title"><img src="../static/img/title_4.png">井盖寿命统计 </div>
+                <p id="char3" class="p_chart"></p>
+                <div class="char_table"><div class="table_p table_p01">
+                    <table>
+                        <thead><tr>
+                            <th>排名</th>
+                            <th>井盖编号</th>
+                            <th>使用时长（年/月）</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td>1</td><td>zs42344</td><td>8年11个月</td></tr>
+                        <tr><td>2</td><td>zs63455</td><td>8年11个月</td></tr>
+                        <tr><td>3</td><td>zs17656</td><td>8年11个月</td></tr>
+                        <tr><td>4</td><td>zs17454</td><td>8年10个月</td></tr>
+                        <tr><td>5</td><td>zs83454</td><td>8年5个月</td></tr>
+                        </tbody>
+                    </table>
+                </div></div>
+            </div>
+            <div class="div_any_child01 left">
+                <div class="div_any_title"><img src="../static/img/title_5.png">开盖水下作业统计（次）</div>
+                <p id="char4" class="p_chart"></p>
+                <div class="char_table"><div class="table_p table_p01">
+                    <table>
+                        <thead><tr><th>近期作业井盖</th></tr></thead>
+                        <thead><tr>
+                            <th>排名</th>
+                            <th>井盖编号</th>
+                            <th>作业日期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td>1</td><td>zs213213</td><td>2024/04/24</td></tr>
+                        <tr><td>2</td><td>zs213223</td><td>2024/04/23</td></tr>
+                        <tr><td>3</td><td>zs122354</td><td>2024/04/19</td></tr>
+                        <tr><td>4</td><td>zs522322</td><td>2024/03/13</td></tr>
+                        <tr><td>5</td><td>zs243123</td><td>2024/03/11</td></tr>
+                        </tbody>
+                    </table>
+                </div></div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="../static/js/jquery/jQuery-2.2.0.min.js"></script>
+<script src="../static/js/echarts-all.js"></script>
+<script src="../static/js/base.js"></script>
+<script src="../static/js/static.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>数据存档</title>
+    <link rel="stylesheet" href="../../static/js/bstable/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../static/css/base.css">
+    <link href="../../static/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+{% load static %}
+    <style>
+        body {
+            background-image: url("{% static 'img/backgrand1.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            min-height: 100vh; /* Ensure full screen height */
+        }
+    </style>
+<body>
+        <div class="table_div">
+            <p class="table_but">
+                <a href="{% url 'upload' %}"  style="color: red">检测井盖</a>
+                <a href="javascript:void(0)" onclick="add()" style="color: red"><i class="glyphicon glyphicon-plus"></i>新增</a>
+                <a href="javascript:void(0)" style="color: red"><i class="glyphicon glyphicon-print"></i>打印</a>
+                <a href="javascript:void(0)" style="color: red"><i class="glyphicon glyphicon-export"></i>导出</a>
+            </p>
+            <p>
+            <table id="table" class="table_style" border="0"></table>
+            </p>
+        </div>
+</body>
+<script src="../../static/js/jquery/jQuery-2.2.0.min.js"></script>
+<script src="../../static/js/table1.js"></script>
+<script src="../../static/js/ztree/jquery.ztree.all-3.5.js"></script>
+<script src="../../static/js/bstable/js/bootstrap.min.js"></script>
+<script src="../../static/js/bstable/js/bootstrap-table.js"></script>
+<script src="../../static/js/bstable/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../static/js/layer_v2.1/layer/layer.js"></script>
+</html>
